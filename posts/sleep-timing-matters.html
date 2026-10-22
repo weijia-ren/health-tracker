@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f4">
+  <title>Why bedtime matters | Health Tracker</title>
+  <link rel="stylesheet" href="../assets/style.css?v=9">
+  <style>
+    .post-shell { max-width: 760px; margin: 0 auto; padding: 28px 18px 72px; }
+    .post-card { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); padding: clamp(20px, 5vw, 34px); }
+    .post-card h1 { font-size: clamp(34px, 8vw, 56px); margin-bottom: 12px; }
+    .post-card p, .post-card li { font-size: 17px; }
+    .post-card ul { padding-left: 22px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .top-bar .back-link { margin-bottom: 0; color: var(--accent); font-weight: 800; text-decoration: none; }
+    .top-bar .back-link:hover { text-decoration: underline; }
+    .share-btn { border: 1px solid var(--line); background: #ffffff; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: var(--accent); cursor: pointer; transition: all .15s ease; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .share-btn:hover { background: var(--soft); }
+    .toast { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%) translateY(20px); background: rgba(20, 20, 20, 0.92); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 1000; box-shadow: 0 6px 20px rgba(0,0,0,.2); white-space: nowrap; }
+    .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .try-box { margin: 20px 0; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: #fffdf7; }
+    .try-box h2 { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <main class="post-shell">
+    <div class="top-bar">
+      <a class="back-link" href="../index.html#resources">← Back to Health Tracker</a>
+      <button type="button" class="share-btn" onclick="sharePost()"><span>↗</span> Share</button>
+    </div>
+    <article class="post-card">
+      <p class="eyebrow">Sleep</p>
+      <h1>Bedtime matters, not just sleep length</h1>
+      <p class="subhead">Getting enough hours is important, but the time you go to bed can matter just as much — and for some people, even more.</p>
+
+      <p>Sleep length tells you how much rest you got. Bedtime tells you whether your body had a predictable rhythm. A consistent sleep window helps your brain and body know when to wind down, when to repair, and when to wake up with steadier energy.</p>
+
+      <p>If you sleep eight hours but go to bed at very different times each night, your body may still feel like it is catching up. Late nights can also make it harder to get deep, regular sleep, even when the total number of hours looks fine.</p>
+
+      <section class="try-box">
+        <h2>Try tonight</h2>
+        <p>Choose a realistic bedtime cue and start winding down 30 minutes before it.</p>
+      </section>
+
+      <h2>A simple way to use this</h2>
+      <ul>
+        <li>Pick a realistic bedtime target — not a perfect one.</li>
+        <li>Protect the 30 minutes before that time as a wind-down window.</li>
+        <li>Track both bedtime and sleep length for a week.</li>
+        <li>If you feel tired, look first for big bedtime swings, not only short sleep.</li>
+      </ul>
+
+      <p>For Health Tracker, the goal is not to make every night perfect. The goal is to notice whether your sleep rhythm is becoming easier to repeat.</p>
+    </article>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+    function showToast(message) {
+      let toast = document.getElementById('toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.add('visible');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => { toast.classList.remove('visible'); }, 2200);
+    }
+
+    async function sharePost() {
+      const isLocal = !window.location.origin || window.location.origin === 'null' || window.location.origin.startsWith('file:');
+      const postUrl = isLocal 
+        ? 'https://health-tracker-app-beta.netlify.app/posts/sleep-timing-matters.html'
+        : window.location.href;
+      const shareData = {
+        title: 'Bedtime matters, not just sleep length | Health Tracker',
+        text: 'A short note on why a steady bedtime can be as important as total sleep hours.',
+        url: postUrl
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (e) {
+          if (e.name === 'AbortError') return;
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(postUrl);
+          showToast('Link copied to clipboard!');
+          return;
+        } catch (e) {}
+      }
+      prompt('Copy link to share:', postUrl);
+    }
+  </script>
+</body>
+</html>

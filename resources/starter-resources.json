@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Sleep",
+    "type": "My post",
+    "title": "Bedtime matters, not just sleep length",
+    "summary": "A short note on why a steady bedtime can be as important as total sleep hours.",
+    "action_tip": "Tonight, choose a realistic bedtime cue and start winding down 30 minutes before it.",
+    "url": "posts/sleep-timing-matters.html",
+    "link_label": "Read the bedtime post",
+    "last_reviewed": "2026-09-10"
+  },
+  {
+    "category": "Sleep",
+    "type": "Starter post",
+    "title": "Protect a consistent sleep window",
+    "summary": "A regular sleep schedule and enough time in bed make sleep patterns easier to stabilize.",
+    "action_tip": "Pick one realistic bedtime cue and protect your wake time for one week.",
+    "url": "https://www.cdc.gov/sleep/about/index.html",
+    "link_label": "CDC: About Sleep",
+    "last_reviewed": "2026-09-09"
+  },
+  {
+    "category": "Nutrition",
+    "type": "My post",
+    "title": "科学去黑头与一周护肤计划（水杨酸、A酸与屏障修护）",
+    "summary": "兼顾去黑头、细化毛孔与屏障修护的一周循环护肤法，含通用排期、操作细节、应急刹车与推荐单品。",
+    "action_tip": "谨记白天防晒、夜晚分天使用水杨酸与A酸，避免同一晚叠加，做好神经酰胺修护。",
+    "url": "posts/skincare-blackheads-routine.html",
+    "link_label": "阅读去黑头与护肤计划",
+    "last_reviewed": "2026-09-24"
+  },
+  {
+    "category": "Nutrition",
+    "type": "Starter post",
+    "title": "Build balanced plates",
+    "summary": "Protein, fiber-rich carbohydrates, fruits or vegetables, healthy fats, and hydration are a practical foundation.",
+    "action_tip": "At one meal today, add one protein source and one colorful plant food.",
+    "url": "https://www.myplate.gov/",
+    "link_label": "USDA MyPlate",
+    "last_reviewed": "2026-09-09"
+  },
+  {
+    "category": "Exercise",
+    "type": "Starter post",
+    "title": "Use recovery-aware movement",
+    "summary": "A sustainable routine can mix cardio, strength, and mobility while adjusting to fatigue.",
+    "action_tip": "If energy is low, keep the habit with a shorter stretch, walk, or light strength set.",
+    "url": "https://www.cdc.gov/physical-activity-basics/guidelines/adults.html",
+    "link_label": "CDC: Activity Guidelines",
+    "last_reviewed": "2026-09-09"
+  },
+  {
+    "category": "Stress & recovery",
+    "type": "Starter post",
+    "title": "Make recovery small and repeatable",
+    "summary": "Short meditation, gratitude, prayer, and social connection can make recovery easier to practice.",
+    "action_tip": "Do a two-minute reset: breathe, stretch, pray, write one thanks, or message one supportive person.",
+    "url": "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet",
+    "link_label": "NIMH: So Stressed Out?",
+    "last_reviewed": "2026-09-09"
+  }
+]

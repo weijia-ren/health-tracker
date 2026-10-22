@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f4">
+  <title>科学去黑头与一周护肤计划 | Health Tracker</title>
+  <link rel="stylesheet" href="../assets/style.css?v=15">
+  <style>
+    .post-shell { max-width: 760px; margin: 0 auto; padding: 28px 18px 72px; }
+    .post-card { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); padding: clamp(20px, 5vw, 34px); }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .top-bar .back-link { margin-bottom: 0; color: var(--accent); font-weight: 800; text-decoration: none; font-size: 15px; }
+    .top-bar .back-link:hover { text-decoration: underline; }
+    .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .share-btn { border: 1px solid var(--line); background: #ffffff; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: var(--accent); cursor: pointer; transition: all .15s ease; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .share-btn:hover { background: var(--soft); }
+    .toast { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%) translateY(20px); background: rgba(20, 20, 20, 0.92); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 1000; box-shadow: 0 6px 20px rgba(0,0,0,.2); white-space: nowrap; }
+    .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    
+    /* Language Toggle Switch */
+    .lang-switch { display: inline-flex; align-items: center; background: #e8e5e0; padding: 3px; border-radius: 999px; gap: 2px; }
+    .lang-btn { border: 0; background: transparent; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: var(--muted); cursor: pointer; transition: all .15s ease; }
+    .lang-btn.active { background: #ffffff; color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+    
+    .post-card h1 { font-size: clamp(26px, 6vw, 40px); margin-bottom: 12px; line-height: 1.15; }
+    .post-card h2 { font-size: 22px; margin-top: 32px; margin-bottom: 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; color: var(--text); }
+    .post-card h3 { font-size: 18px; margin-top: 22px; margin-bottom: 10px; color: var(--text); }
+    .post-card p, .post-card li { font-size: 16px; line-height: 1.65; color: var(--text); }
+    .post-card ul, .post-card ol { padding-left: 22px; margin-bottom: 16px; }
+    .post-card li { margin-bottom: 6px; }
+    .tip-box { margin: 20px 0; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: #fffdf7; }
+    .tip-box h3 { margin: 0 0 6px; font-size: 16px; color: #7a5800; }
+    .alert-box { margin: 20px 0; padding: 16px; border: 1px solid rgba(180, 35, 24, 0.25); border-radius: 16px; background: #fff5f5; }
+    .alert-box h3 { margin: 0 0 6px; font-size: 16px; color: var(--danger); }
+    .table-wrap { overflow-x: auto; margin: 18px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; text-align: left; }
+    th, td { border: 1px solid var(--line); padding: 12px 14px; }
+    th { background: #faf9f7; font-weight: 800; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+    .badge-acid { background: #e6f8ea; color: #15803d; }
+    .badge-retinoid { background: #fee2e2; color: #b91c1c; }
+    .badge-repair { background: #e0f2fe; color: #0369a1; }
+    .badge-oil { background: #fef3c7; color: #b45309; }
+
+    /* Language display toggle */
+    .lang-en { display: none; }
+    body.show-en .lang-zh { display: none; }
+    body.show-en .lang-en { display: block; }
+  </style>
+</head>
+<body>
+  <main class="post-shell">
+    <div class="top-bar">
+      <a class="back-link" href="../index.html#resources">← Back to Health Tracker</a>
+      <div class="top-actions">
+        <button type="button" id="share-post-btn" class="share-btn" onclick="sharePost()">
+          <span>↗</span> <span id="share-label">分享</span>
+        </button>
+        <div class="lang-switch" role="group" aria-label="Language Selector">
+          <button type="button" id="btn-zh" class="lang-btn active" onclick="setLang('zh')">中文 (CN)</button>
+          <button type="button" id="btn-en" class="lang-btn" onclick="setLang('en')">English (EN)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== CHINESE CONTENT ==================== -->
+    <article class="post-card lang-zh">
+      <p class="eyebrow">Nutrition & Skin Wellness</p>
+      <h1>科学去黑头与一周护肤计划</h1>
+      <p class="subhead">黑头的本质是油脂和脱落角质接触空气氧化后的堵塞栓。通过“刷酸疏通 + A酸代谢 + 以油溶油浮出 + 神经酰胺修护”的闭环循环，既能有效改善黑头毛孔，又能守住健康皮肤屏障。</p>
+
+      <section class="tip-box">
+        <h3>每日晨间黄金准则（必须严格执行）</h3>
+        <p><strong>所有功效猛药（酸、A酸）仅限夜晚使用！</strong> 白天流程保持极简：温水洗脸 → 基础保湿乳液 → <strong>全脸涂抹广谱防晒霜（SPF 30+ / PA+++ 以上）</strong>。紫外线会加速皮脂氧化变黑，并晒伤新代谢出的娇嫩角质层。</p>
+      </section>
+
+      <h2>一、 一周护肤计划表（通用排期）</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>星期</th>
+              <th>当晚任务</th>
+              <th>核心作用与使用区域</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>周一</strong></td>
+              <td><span class="badge badge-acid">刷酸夜</span></td>
+              <td><strong>局部专攻</strong>：鼻头、T区出油黑头处（溶解多余油脂、松动角栓）</td>
+            </tr>
+            <tr>
+              <td><strong>周二</strong></td>
+              <td><span class="badge badge-repair">修护夜</span></td>
+              <td><strong>全脸修护</strong>：温和保湿，给皮肤缓冲和加固皮脂膜</td>
+            </tr>
+            <tr>
+              <td><strong>周三</strong></td>
+              <td><span class="badge badge-repair">修护夜</span></td>
+              <td><strong>全脸修护</strong>：维持水油平衡，修养角质层</td>
+            </tr>
+            <tr>
+              <td><strong>周四</strong></td>
+              <td><span class="badge badge-retinoid">A酸 / A醇夜</span></td>
+              <td><strong>全脸调理</strong>：避开眼周和鼻翼缝（深入毛囊、加速代谢、紧致毛孔）</td>
+            </tr>
+            <tr>
+              <td><strong>周五</strong></td>
+              <td><span class="badge badge-repair">修护夜</span></td>
+              <td><strong>全脸修护</strong>：缓解活性成分带来的潜在干燥与脱皮</td>
+            </tr>
+            <tr>
+              <td><strong>周六</strong></td>
+              <td><span class="badge badge-repair">修护夜</span></td>
+              <td><strong>全脸修护</strong>：给角质层充裕的喘息休整时间</td>
+            </tr>
+            <tr>
+              <td><strong>周日</strong></td>
+              <td><span class="badge badge-oil">以油溶油清洁夜</span></td>
+              <td><strong>局部清洁</strong>：鼻头打圈揉出浮出角栓 → 乳化洗净 → 修护封层</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>二、 各夜晚具体操作步骤</h2>
+
+      <h3>1. 🟢【刷酸夜】（如周一）</h3>
+      <ol>
+        <li><strong>洁面彻底擦干</strong>：温和洁面后，用洗脸巾将全脸按干，等待 1 分钟使表面完全干燥（湿脸刷酸会加倍刺激）。</li>
+        <li><strong>局部点涂水杨酸</strong>：取 2～3 滴水杨酸精华，点涂于鼻头、鼻梁、额头及下巴黑头集中处（两颊脆弱处不涂）。用指腹轻轻按压吸收，切勿用力反复揉搓。</li>
+        <li><strong>静置吸收</strong>：静置等待 3～5 分钟，让脂溶性水杨酸渗透进毛孔软化并溶解多余油脂。</li>
+        <li><strong>保湿封层</strong>：全脸涂抹基础保湿修护面霜，即可入睡。</li>
+      </ol>
+
+      <h3>2. 🔴【A酸 / A醇夜】（如周四）</h3>
+      <ol>
+        <li><strong>洁面擦干</strong>：温和清洁并擦干全脸。</li>
+        <li><strong>打底隔离（最关键一步）</strong>：先取微量保湿霜，厚涂在<strong>鼻翼凹槽折缝处、眼周、嘴角</strong>，筑起一道保护屏障，防止强效活性成分在此积聚引起刺痛蜕皮。</li>
+        <li><strong>全脸点涂</strong>：严格取<strong>一颗黄豆大小（绿豆到小黄豆粒量）</strong>，点在额头、两颊、下巴、鼻梁，顺着肌肉纹理全脸均匀涂抹（可混入一泵普通乳液增加延展性）。</li>
+        <li><strong>夹心锁水</strong>：等待 2～3 分钟后，全脸再按压涂抹一层修护晚霜（三明治打底法，能大幅减少不耐受反应）。</li>
+      </ol>
+
+      <h3>3. 💧【修护夜】（周二、周三、周五、周六）</h3>
+      <ol>
+        <li><strong>温和清洁</strong>：温水或温和氨基酸洁面乳洁面。</li>
+        <li><strong>停用猛药</strong>：今晚不叠加任何酸类、A类、高浓度美白成分或酒精收敛水。</li>
+        <li><strong>屏障滋养</strong>：轻拍少许无酒精保湿水，取足量含有神经酰胺、B5等修护成分的晚霜均匀涂满全脸，滋养新生角质。</li>
+      </ol>
+
+      <h3>4. 💆【以油溶油清洁夜】（周日）</h3>
+      <ol>
+        <li><strong>温敷软化</strong>：洁面前，用温热毛巾在鼻头上轻敷 1～2 分钟，使毛孔微微舒张、硬化角栓软化。</li>
+        <li><strong>擦干表面（务必干手干脸！）</strong>：拿开毛巾后，用洗脸巾把鼻头水分完全吸干，双手也必须彻底擦干。<strong>切忌湿手湿脸抹油</strong>（水分会阻隔油脂渗透，导致以油溶油失效）。</li>
+        <li><strong>指腹轻柔打圈（控制在 1～2 分钟）</strong>：取 3～4 滴荷荷巴油或植物卸妆油涂在鼻头及鼻翼，用指腹轻柔画小圈按摩 1～2 分钟（前期的角栓已松动，会顺势被揉出细小颗粒感，切忌用力抠抓、切勿超时）。</li>
+        <li><strong>清除残油防闷痘（核心一步）</strong>：先用纸巾/洗脸巾轻轻按压吸走表面脏油；纯荷荷巴油不含人工乳化剂，<strong>必须用温和洗面奶打出泡沫二次清洁</strong>并用温水彻底冲净（若是带乳化剂的卸妆油则加温水打圈乳化后冲净），确保无黏腻油膜残留。</li>
+        <li><strong>补水收敛与封层</strong>：擦干后，全脸薄涂修护晚霜安抚封层。</li>
+      </ol>
+
+      <h2>三、 应急刹车指南与产品推荐</h2>
+
+      <section class="alert-box">
+        <h3>🚨 应急刹车指南（如何判断翻车与急救）</h3>
+        <ul>
+          <li><strong>正常耐受反应</strong>：使用初期鼻翼边缘轻度干燥、有极细微起皮，只要没有红肿刺痛，属于角质更新正常现象，多擦修护晚霜即可。</li>
+          <li><strong>翻车危险警报</strong>：洗脸或涂抹温和面霜时有<strong>明显的刺痛感、发热发烫、大面积泛红、紧绷皲裂</strong>。</li>
+          <li><strong>急救方案</strong>：立即暂停所有酸类、A类产品及以油溶油步骤；早晚只用温水洗脸，厚涂神经酰胺修护晚霜；持续修护 3～5 天直至完全无痛感，再降频重新开始。</li>
+        </ul>
+      </section>
+
+      <h3>🧴 推荐产品清单</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>类别</th>
+              <th>推荐单品</th>
+              <th>核心功效与选择理由</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>酸</strong></td>
+              <td><strong>The Ordinary 2% 水杨酸精华</strong><br><em>(Salicylic Acid 2% Solution)</em></td>
+              <td>经典高纯度脂溶性水杨酸，专攻疏通毛孔通道、剥脱老废角质、溶解氧化黑头。</td>
+            </tr>
+            <tr>
+              <td><strong>A酸 / A醇</strong></td>
+              <td><strong>Differin 达芙文 0.1% 阿达帕林凝胶</strong><br><em>(Differin Adapalene Gel 0.1%)</em></td>
+              <td>第三代外用药用 A 酸，针对毛囊角化异常与黑头粉刺的临床黄金标准，从源头抑制角栓形成。</td>
+            </tr>
+            <tr>
+              <td><strong>晚霜</strong></td>
+              <td><strong>CeraVe 晚霜</strong><br><em>(PM乳 或 Skin Renewing 紫罐晚霜)</em></td>
+              <td>富含 3 重必需神经酰胺 + 玻尿酸，具备 MVE 缓释保湿技术，专为修护屏障、缓解干燥蜕皮而设计。</td>
+            </tr>
+            <tr>
+              <td><strong>以油溶油</strong></td>
+              <td><strong>100% 冷榨荷荷巴油</strong> 或 温和植物卸妆油</td>
+              <td>荷荷巴油分子结构最接近人体自身皮脂，能以油溶油带出浮出角栓，且不易致痘闷闭口。</td>
+            </tr>
+            <tr>
+              <td><strong>晨间必备</strong></td>
+              <td><strong>广谱防晒霜</strong> <em>(SPF 30+ / PA+++ 以上)</em></td>
+              <td>使用活性酸类与 A 酸后角质层对紫外线极为敏感，必须每日严格防晒防止光损伤与油脂反黑。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- ==================== ENGLISH CONTENT ==================== -->
+    <article class="post-card lang-en">
+      <p class="eyebrow">Nutrition & Skin Wellness</p>
+      <h1>Scientific Blackhead Removal & Weekly Skincare Routine</h1>
+      <p class="subhead">Blackheads are plugs of oxidized sebum and dead skin cells trapped inside follicles. By practicing a closed-loop cycle of "BHA exfoliation + Retinoid renewal + Oil dissolution + Ceramide barrier repair," you can clear clogged pores and improve texture while keeping your moisture barrier intact.</p>
+
+      <section class="tip-box">
+        <h3>Daily Morning Golden Rule (Mandatory)</h3>
+        <p><strong>All potent active ingredients (Acids, Retinoids) are strictly for NIGHT use only!</strong> Keep mornings minimal: Rinse with lukewarm water → Gentle moisturizer → <strong>Broad-Spectrum Sunscreen (SPF 30+ / PA+++)</strong>. UV exposure rapidly oxidizes sebum into dark blackheads and damages newly exfoliated skin.</p>
+      </section>
+
+      <h2>1. Weekly Skincare Schedule (General Routine)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Night Focus</th>
+              <th>Target Area & Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Monday</strong></td>
+              <td><span class="badge badge-acid">BHA Exfoliation Night</span></td>
+              <td><strong>Targeted T-Zone</strong>: Nose and oily areas (dissolves excess sebum and loosens hardened plugs).</td>
+            </tr>
+            <tr>
+              <td><strong>Tuesday</strong></td>
+              <td><span class="badge badge-repair">Barrier Repair Night</span></td>
+              <td><strong>Full Face</strong>: Gentle hydration to buffer and rebuild the skin lipid barrier.</td>
+            </tr>
+            <tr>
+              <td><strong>Wednesday</strong></td>
+              <td><span class="badge badge-repair">Barrier Repair Night</span></td>
+              <td><strong>Full Face</strong>: Balances moisture levels and lets the stratum corneum recuperate.</td>
+            </tr>
+            <tr>
+              <td><strong>Thursday</strong></td>
+              <td><span class="badge badge-retinoid">Retinoid Night</span></td>
+              <td><strong>Full Face</strong>: Avoid eye contour & nasal fold creases (deep cellular renewal, refines pore walls).</td>
+            </tr>
+            <tr>
+              <td><strong>Friday</strong></td>
+              <td><span class="badge badge-repair">Barrier Repair Night</span></td>
+              <td><strong>Full Face</strong>: Relieves potential dryness or tightness following active treatments.</td>
+            </tr>
+            <tr>
+              <td><strong>Saturday</strong></td>
+              <td><span class="badge badge-repair">Barrier Repair Night</span></td>
+              <td><strong>Full Face</strong>: Ample rest and nourishment period for skin barrier stability.</td>
+            </tr>
+            <tr>
+              <td><strong>Sunday</strong></td>
+              <td><span class="badge badge-oil">Oil Cleansing Night</span></td>
+              <td><strong>Targeted Nose</strong>: Gentle circular massage to roll out loosened plugs → Emulsify & rinse → Barrier cream.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>2. Step-by-Step Nightly Procedures</h2>
+
+      <h3>1. 🟢 BHA Exfoliation Night (e.g., Monday)</h3>
+      <ol>
+        <li><strong>Cleanse & Dry Completely</strong>: Wash with a mild cleanser and pat thoroughly dry with a clean towel. Wait 1 full minute to ensure skin is bone dry (applying acids to damp skin increases penetration rate and risk of irritation).</li>
+        <li><strong>Targeted Application</strong>: Dispense 2–3 drops of salicylic acid serum and gently pat over the nose, nose bridge, forehead, and chin where blackheads concentrate (skip delicate dry cheeks). Pat gently—do not scrub vigorously.</li>
+        <li><strong>Allow to Penetrate</strong>: Wait 3–5 minutes for the lipid-soluble BHA to penetrate into pores and dissolve trapped oil.</li>
+        <li><strong>Moisturize & Seal</strong>: Apply a layer of gentle barrier night cream across the whole face, then sleep.</li>
+      </ol>
+
+      <h3>2. 🔴 Retinoid Night (e.g., Thursday)</h3>
+      <ol>
+        <li><strong>Cleanse & Dry</strong>: Wash gently and pat face completely dry.</li>
+        <li><strong>Buffer Delicate Zones (Crucial)</strong>: Dab a small amount of basic moisturizer into the <strong>nasal crease folds, eye contour, and lip corners</strong> to form an occlusive shield, preventing retinoid from pooling and causing raw peeling.</li>
+        <li><strong>Pea-Sized Amount</strong>: Strictly use a <strong>pea-sized amount</strong>. Dot across forehead, cheeks, chin, and nose bridge, then smooth evenly over the face (you can blend with a pump of light moisturizer to improve spreadability).</li>
+        <li><strong>Sandwich Lock-in</strong>: Wait 2–3 minutes, then seal with another layer of barrier night cream (the "Sandwich Method" significantly reduces retinization side effects).</li>
+      </ol>
+
+      <h3>3. 💧 Barrier Repair Nights (Tue, Wed, Fri, Sat)</h3>
+      <ol>
+        <li><strong>Gentle Cleanse</strong>: Wash with lukewarm water or a mild amino-acid face wash.</li>
+        <li><strong>No Potent Actives</strong>: Do not layer any acids, retinoids, high-percentage brightening serums, or alcohol toners tonight.</li>
+        <li><strong>Deep Nourishment</strong>: Pat an alcohol-free hydrating toner if desired, then apply a generous layer of ceramide- and B5-rich night cream to support healthy stratum corneum regeneration.</li>
+      </ol>
+
+      <h3>4. 💆 Oil Cleansing Night (Sunday)</h3>
+      <ol>
+        <li><strong>Warm Compress</strong>: Before cleansing, place a warm, damp cloth over the nose for 1–2 minutes to relax pores and soften hardened sebum plugs.</li>
+        <li><strong>Pat Completely Dry (Dry Hands & Dry Face Mandatory!)</strong>: Remove the cloth and gently pat the skin completely dry with a clean tissue; ensure hands are bone dry as well. <strong>Never apply oil to wet skin</strong> (moisture creates a barrier that blocks oil penetration and prevents effective dissolution).</li>
+        <li><strong>Gentle Circular Massage (1–2 Minutes Only)</strong>: Dispense 3–4 drops of jojoba oil or cleansing oil onto fingertips and massage gently in small circles over the nose for 1–2 minutes (loosened plugs will slide out naturally as tiny grains—never scratch with nails or exceed 2 minutes).</li>
+        <li><strong>Remove Residue to Prevent Breakouts (Crucial Step)</strong>: Gently press a tissue or cloth to blot away excess surface oil. Pure jojoba oil does not contain built-in emulsifiers, so <strong>you must follow with a gentle foaming/amino-acid wash to thoroughly remove all dissolved oil residue</strong> (or massage with warm water to emulsify if using a formulated cleansing oil), ensuring no heavy oily film remains.</li>
+        <li><strong>Soothe & Seal</strong>: Pat dry and apply a barrier night cream across the face to soothe and lock in hydration.</li>
+      </ol>
+
+      <h2>3. Emergency Brakes & Recommended Products</h2>
+
+      <section class="alert-box">
+        <h3>🚨 Emergency Brakes (Warning Signs & Action Protocol)</h3>
+        <ul>
+          <li><strong>Normal Adjustment</strong>: Mild dryness or slight flaking along the sides of the nose without stinging or erythema is typical cell turnover; simply moisturize more.</li>
+          <li><strong>Barrier Breakdown Signs</strong>: A noticeable burning or stinging sensation when washing or applying mild moisturizer, visible redness, heat, or raw tightness.</li>
+          <li><strong>Emergency Protocol</strong>: Immediately halt all acids, retinoids, and oil rubbing; cleanse only with lukewarm water; generously apply ceramide barrier cream; maintain pure recovery for 3–5 days until completely symptom-free before restarting at a lower frequency.</li>
+        </ul>
+      </section>
+
+      <h3>🧴 Recommended Product Arsenal</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Recommended Item</th>
+              <th>Core Function & Key Benefits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Acid</strong></td>
+              <td><strong>The Ordinary 2% Salicylic Acid Solution</strong></td>
+              <td>Classic high-purity, oil-soluble BHA designed to penetrate the pore lining, dissolve sebum, and exfoliate dead cells.</td>
+            </tr>
+            <tr>
+              <td><strong>Retinoid</strong></td>
+              <td><strong>Differin Adapalene Gel 0.1%</strong></td>
+              <td>3rd-generation pharmaceutical retinoid; clinical gold standard for normalizing keratinization and clearing stubborn comedones from the root.</td>
+            </tr>
+            <tr>
+              <td><strong>Night Cream</strong></td>
+              <td><strong>CeraVe Night Cream</strong><br><em>(PM Lotion or Skin Renewing Night Cream)</em></td>
+              <td>Formulated with 3 essential ceramides, hyaluronic acid, and MVE slow-release delivery to restore the barrier and relieve flaking from actives.</td>
+            </tr>
+            <tr>
+              <td><strong>Oil Cleansing</strong></td>
+              <td><strong>100% Cold-Pressed Jojoba Oil</strong> or Gentle Plant Oil</td>
+              <td>Its molecular structure closely mimics human sebum, effectively dissolving softened plugs without clogging follicles.</td>
+            </tr>
+            <tr>
+              <td><strong>Morning Essential</strong></td>
+              <td><strong>Broad-Spectrum Sunscreen</strong> <em>(SPF 30+ / PA+++)</em></td>
+              <td>Exfoliated skin is highly susceptible to UV damage and rapid sebum oxidation; daily sunscreen is non-negotiable.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+    function showToast(message) {
+      let toast = document.getElementById('toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.add('visible');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => { toast.classList.remove('visible'); }, 2200);
+    }
+
+    async function sharePost() {
+      const isEn = document.body.classList.contains('show-en');
+      const isLocal = !window.location.origin || window.location.origin === 'null' || window.location.origin.startsWith('file:');
+      const postUrl = isLocal 
+        ? 'https://health-tracker-app-beta.netlify.app/posts/skincare-blackheads-routine.html'
+        : window.location.href.split('#')[0] + (isEn ? '#en' : '');
+      const shareData = {
+        title: isEn ? 'Scientific Blackhead Removal & Weekly Skincare Routine' : '科学去黑头与一周护肤计划',
+        text: isEn 
+          ? 'Check out this practical weekly routine for blackhead removal, chemical exfoliation, and skin barrier repair.'
+          : '兼顾去黑头、细化毛孔与屏障修护的一周循环护肤法，附通用排期与实操指南。',
+        url: postUrl
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (e) {
+          if (e.name === 'AbortError') return;
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(postUrl);
+          showToast(isEn ? 'Post link copied to clipboard!' : '文章链接已复制到剪贴板！');
+          return;
+        } catch (e) {}
+      }
+      prompt(isEn ? 'Copy link to share:' : '复制以下链接进行分享：', postUrl);
+    }
+
+    function setLang(lang) {
+      const isEn = lang === 'en';
+      document.body.classList.toggle('show-en', isEn);
+      document.getElementById('btn-zh').classList.toggle('active', !isEn);
+      document.getElementById('btn-en').classList.toggle('active', isEn);
+      document.documentElement.lang = isEn ? 'en' : 'zh-CN';
+      document.title = isEn ? 'Blackhead Removal & Weekly Skincare Routine | Health Tracker' : '科学去黑头与一周护肤计划 | Health Tracker';
+      const shareLabel = document.getElementById('share-label');
+      if (shareLabel) shareLabel.textContent = isEn ? 'Share' : '分享';
+      try {
+        localStorage.setItem('skincare_post_lang', lang);
+      } catch (e) {}
+    }
+
+    // Auto-detect saved preference or hash
+    (function initLang() {
+      try {
+        const saved = localStorage.getItem('skincare_post_lang');
+        if (saved === 'en' || location.hash === '#en') {
+          setLang('en');
+        } else {
+          setLang('zh');
+        }
+      } catch (e) {
+        setLang('zh');
+      }
+    })();
+  </script>
+</body>
+</html>

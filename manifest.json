@@ -1,0 +1,25 @@
+{
+  "name": "Health Tracker",
+  "short_name": "Health Tracker",
+  "start_url": "./index.html?v=15",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f5f4",
+  "theme_color": "#f6f5f4",
+  "description": "A private local-first daily tracker for sleep, nutrition, exercise, and stress.",
+  "icons": [
+    {
+      "src": "assets/icons/Health%20Tracker%20-%20App%20icon.png?v=15",
+      "sizes": "128x128 192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/Health%20Tracker%20-%20App%20icon.png?v=15",
+      "sizes": "128x128 192x192 512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f5f4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Health Tracker">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Health Tracker</title>
+  <link rel="manifest" href="manifest.json?v=15">
+  <link rel="icon" href="assets/icons/Health%20Tracker%20-%20App%20icon.png?v=15" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/Health%20Tracker%20-%20App%20icon.png?v=15">
+  <link rel="stylesheet" href="assets/style.css?v=16">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Private · local-first · free</p>
+        <h1 class="brand-heading">
+          <img src="assets/icons/Health%20Tracker%20-%20Primary%20logo%20with%20name.png" alt="Health Tracker" class="app-header-logo">
+        </h1>
+        <p class="subhead">Track sleep, nutrition, exercise, and stress in a few taps.</p>
+      </div>
+      <div class="header-actions">
+        <button id="share-button" class="ghost-button" type="button" aria-label="Share Health Tracker">↗ Share</button>
+        <button id="install-button" class="ghost-button" hidden>Install</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="tab-today" class="screen active" aria-labelledby="today-title">
+        <div class="summary-card">
+          <div>
+            <p class="eyebrow">Today</p>
+            <h2 id="today-title"><span id="today-score">0/11</span> complete</h2>
+            <p id="today-message" class="muted">Save what is true today. Partial progress counts.</p>
+          </div>
+          <div class="ring" aria-label="Today completion">
+            <span id="today-percent">0%</span>
+          </div>
+        </div>
+
+        <article class="privacy-strip" aria-label="Privacy note">
+          <strong>Private by default.</strong> Your entries stay in this browser on this device.
+        </article>
+
+        <form id="checkin-form" class="stack" autocomplete="off">
+          <article class="check-card" data-area="sleep">
+            <button class="card-toggle" type="button" aria-expanded="false">
+              <span><span class="emoji">🌙</span> Sleep</span><span id="sleep-score" class="pill">0/3</span>
+            </button>
+            <div class="card-body collapsed">
+              <div class="field-grid two">
+                <label>Bedtime<input type="time" id="sleep-bedtime"></label>
+                <label>Wake time<input type="time" id="sleep-waketime"></label>
+              </div>
+              <p class="micro">Sleep length: <strong id="sleep-length">—</strong>. Goal: 8+ hours and bed before 11 pm.</p>
+              <fieldset>
+                <legend>Sleep quality</legend>
+                <div class="quality-row" data-quality="sleep-quality">
+                  <button type="button" data-value="1">😣<span>Poor</span></button>
+                  <button type="button" data-value="2">😕<span>Fair</span></button>
+                  <button type="button" data-value="3">😐<span>Okay</span></button>
+                  <button type="button" data-value="4">😊<span>Good</span></button>
+                  <button type="button" data-value="5">😄<span>Great</span></button>
+                </div>
+              </fieldset>
+              <p class="tip">Tip: A consistent bedtime matters more than a perfect night.</p>
+            </div>
+          </article>
+
+          <article class="check-card" data-area="nutrition">
+            <button class="card-toggle" type="button" aria-expanded="false">
+              <span><span class="emoji">🥗</span> Nutrition</span><span id="nutrition-score" class="pill">0/2</span>
+            </button>
+            <div class="card-body collapsed">
+              <fieldset>
+                <legend>Nutrition balance</legend>
+                <div class="balance-row" data-rating="nutrition-balance" aria-label="Nutrition balance scale">
+                  <button type="button" data-value="1"><span>Mostly snacks</span></button>
+                  <button type="button" data-value="2"><span>Light balance</span></button>
+                  <button type="button" data-value="3"><span>Some balance</span></button>
+                  <button type="button" data-value="4"><span>Balanced</span></button>
+                  <button type="button" data-value="5"><span>Very balanced</span></button>
+                </div>
+              </fieldset>
+              <label class="switch-row"><span>Supplement taken</span><input type="checkbox" id="nutrition-supplement"></label>
+              <p class="tip">Tip: Add protein or fiber before trying to restrict food.</p>
+            </div>
+          </article>
+
+          <article class="check-card" data-area="exercise">
+            <button class="card-toggle" type="button" aria-expanded="false">
+              <span><span class="emoji">🏃</span> Exercise</span><span id="exercise-score" class="pill">0/3</span>
+            </button>
+            <div class="card-body collapsed">
+              <div class="field-grid three">
+                <label>Cardio<input inputmode="numeric" type="number" min="0" max="600" id="exercise-cardio" placeholder="0 min"></label>
+                <label>Strength<input inputmode="numeric" type="number" min="0" max="600" id="exercise-weight" placeholder="0 min"></label>
+                <label>Stretch<input inputmode="numeric" type="number" min="0" max="600" id="exercise-stretch" placeholder="0 min"></label>
+              </div>
+              <p class="tip">Tip: On low-energy days, stretch still counts.</p>
+            </div>
+          </article>
+
+          <article class="check-card" data-area="stress">
+            <button class="card-toggle" type="button" aria-expanded="false">
+              <span><span class="emoji">🧘</span> Stress & recovery</span><span id="stress-score" class="pill">0/3</span>
+            </button>
+            <div class="card-body collapsed">
+              <label>Meditation<input inputmode="numeric" type="number" min="0" max="600" id="stress-meditation" placeholder="0 min"></label>
+              <label class="switch-row"><span>Social activity</span><input type="checkbox" id="stress-social"></label>
+              <p class="micro">Examples: text or call someone, share a meal, join a class or group, attend church/community time, play with family, or offer/receive affection.</p>
+              <label>Thanks/pray note<textarea id="stress-thanks" rows="3" maxlength="240" placeholder="One short gratitude, prayer, or reflection..."></textarea></label>
+              <p class="tip">Tip: One short social connection or affection can support recovery.</p>
+            </div>
+          </article>
+
+          <button class="primary-button" type="submit">Save today's check-in</button>
+        </form>
+      </section>
+
+      <section id="tab-trends" class="screen" aria-labelledby="trends-title">
+        <div class="section-heading">
+          <p class="eyebrow">Patterns</p>
+          <h2 id="trends-title">Trends</h2>
+          <p class="muted">Simple summaries from data stored on this device.</p>
+        </div>
+        <div id="trend-grid" class="trend-grid"></div>
+      </section>
+
+      <section id="tab-resources" class="screen" aria-labelledby="resources-title">
+        <div class="section-heading">
+          <p class="eyebrow">Learn</p>
+          <h2 id="resources-title">Resources</h2>
+          <p class="muted">Expandable modules for your own posts, links, and reviewed starter resources.</p>
+        </div>
+        <div id="resource-list" class="resource-list"></div>
+      </section>
+
+      <section id="tab-settings" class="screen" aria-labelledby="settings-title">
+        <div class="section-heading">
+          <p class="eyebrow">Control</p>
+          <h2 id="settings-title">Settings & privacy</h2>
+          <p class="muted">Your check-ins stay in this browser on this device.</p>
+        </div>
+        <article class="info-card">
+          <h3>Share Health Tracker</h3>
+          <p class="muted">Share this private, free habit tracking tool with friends, family, or your community.</p>
+          <button id="share-settings-button" class="primary-button" type="button">↗ Share app link</button>
+        </article>
+        <article class="info-card">
+          <h3>Privacy promise</h3>
+          <p>This beta stores check-in data only in your browser on your device. There is no account, no server database, and no email collection.</p>
+        </article>
+        <article class="info-card">
+          <h3>Health disclaimer</h3>
+          <p>This tool is for personal reflection and habit tracking only. It is not medical advice, diagnosis, or treatment. For medical questions, symptoms, or changes to care, talk with a qualified health professional.</p>
+        </article>
+        <article class="info-card feedback-card">
+          <h3>Feedback</h3>
+          <p class="muted">Use a short Google Form to send feedback to the app owner. Please do not include your email address or personal medical details.</p>
+          <form id="feedback-form" class="feedback-form">
+            <button class="primary-button" type="submit">Open feedback form</button>
+            <p id="feedback-status" class="micro" aria-live="polite">Feedback form is connected and opens in a new tab.</p>
+          </form>
+        </article>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Primary navigation">
+      <button data-tab="today" class="active"><span>☀️</span>Today</button>
+      <button data-tab="trends"><span>📈</span>Trends</button>
+      <button data-tab="resources"><span>📚</span>Resources</button>
+      <button data-tab="settings"><span>⚙️</span>Settings</button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/app.js?v=15"></script>
+</body>
+</html>
